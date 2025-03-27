@@ -1,59 +1,64 @@
-# 流日生年四化 Windows PWA小组件
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
-这是一个基于Windows PWA技术的紫微斗数流日生年四化小组件，可以帮助用户查看每日的流日生年四化信息。
+# pwa-music-player
 
-## 功能特点
+pwa-music-player is a fine-tuned version of [PWAmp](https://microsoftedge.github.io/Demos/pwamp/), serving as a progressive web application (PWA) audio player. This installable web app demonstrates various desktop integration features, allowing users to:
 
-- 显示当日天干地支与四化星信息
-- 支持日期导航与选择
-- 支持月份选择
-- 深色/浅色主题适配
-- 不同尺寸的Windows小组件支持
-- 离线使用功能
+- Add songs  
+- Edit song information  
+- Apply custom skins  
+- Record audio clips  
+- Utilize native file handling  
+- And more  
 
-## 安装方法
+## Features
 
-### 1. 使用Edge浏览器安装
+- **Song Management** – Add and edit song details.  
+- **Customization** – Apply custom skins to personalize the player.  
+- **Audio Recording** – Record and manage audio clips within the app.  
+- **Native Integration** – Supports native file handling for a seamless experience.  
 
-1. 使用Edge浏览器访问小组件页面
-2. 点击地址栏右侧的"安装"图标
-3. 按照提示完成安装
-4. 安装完成后，可以在Windows小组件面板中找到并添加此小组件
+## Installation
 
-### 2. 作为Windows应用安装
+To install pwa-music-player:
 
-1. 下载仓库中的所有文件
-2. 将文件放置在您的Web服务器上
-3. 通过浏览器访问index.html
-4. 点击浏览器菜单中的"安装应用程序"选项
-5. 应用安装完成后，可以在Windows小组件面板中找到并添加此小组件
+1. Clone the repository:
 
-## 小组件配置
+   ```bash
+   git clone https://github.com/bigjohncodes/pwa-music-player.git
+   ```
 
-您可以通过widget.html页面配置小组件的各项参数：
+2. Navigate to the project directory:
 
-- 小组件尺寸（小号、中号、宽幅）
-- 主题选择（浅色、深色、跟随系统）
-- 命主性别设置
+   ```bash
+   cd pwa-music-player
+   ```
 
-## 使用方法
+3. Open `index.html` in your preferred web browser.
 
-1. 添加小组件到Windows桌面
-2. 点击日期可查看相应日期的四化信息
-3. 左右滑动可切换周次
-4. 点击月份名称可切换月份视图
+For an enhanced experience, install the app as a PWA:
 
-## 技术实现
+- **On Chrome** – Click the install button in the address bar.  
+- **On Edge** – Navigate to the browser menu and select "Apps" > "Install this site as an app".  
 
-- 使用iztro.js进行紫微斗数命理计算
-- PWA技术实现离线功能
-- 响应式设计适配不同尺寸的小组件
+## Hosting via GitHub Pages
 
-## 注意事项
+To make pwa-music-player accessible via GitHub Pages:
 
-- 小组件需要Windows 11或更高版本系统支持
-- 需要支持PWA的浏览器（如Edge、Chrome）
+1. **Enable GitHub Pages**  
+   - Go to your repository on GitHub.  
+   - Click on **Settings**.  
+   - Under **Code and automation**, go to **Pages**.  
+   - In the **Build and deployment** section, choose **Deploy from a branch**.  
+   - Select the `main` branch and set the folder to `/root` or `/docs`.  
 
-## 隐私说明
+2. **Disable Jekyll Processing (Optional)**  
+   - Add a `.nojekyll` file to the root of your publishing source to bypass Jekyll processing.  
 
-本应用不收集任何用户数据，所有计算均在本地进行。 
+3. **Access Your Site**  
+   - Once published, your app will be available at:  
+     ```
+     https://bigjohncodes.github.io/pwa-music-player/
+     ```
+
+For more details, refer to [GitHub Pages Documentation](https://docs.github.com/en/pages).

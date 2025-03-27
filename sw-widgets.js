@@ -1,12 +1,12 @@
-const WIDGET_TAG = 'sihua';
+const WIDGET_TAG = 'pwamp';
 
-// 存储模板和初始数据
-// 这些将在小组件首次安装时设置
+// Storing our template and initial data locally.
+// These will be set the first time the widget is installed.
+// See renderEmptyWidget.
 let template = null;
 let templateActions = [];
 let initialData = null;
 
-// 向客户端发送消息
 async function sendClientMessage(data) {
   const allClients = await clients.matchAll({
     includeUncontrolled: true,
@@ -17,35 +17,41 @@ async function sendClientMessage(data) {
   });
 }
 
-// 确保在Service Worker激活时更新小组件到初始状态
-// 小组件可能在SW激活前安装，如果此时不更新
-// 小组件将为空白状态
+// Make sure to update the widget to its initial state  when
+// the service worker is activated.
+// Widgets may be installed before a SW is activated, and if we
+// don't update it now, it will be empty.
 self.addEventListener('activate', (event) => {
   event.waitUntil(renderEmptyWidget());
 });
 
-// 监听widgetinstall事件，在小组件首次安装时更新
+// Listen to the widgetinstall event in order to update the widget
+// when it gets installed the first time.
 self.addEventListener('widgetinstall', (event) => {
   event.waitUntil(renderEmptyWidget(event));
 });
 
-// 监听widgetclick事件，响应用户在小组件中的操作
+// Listen to the widgetclick event to react to user actions in the widget.
 self.addEventListener('widgetclick', (event) => {
   switch (event.action) {
-    case 'openapp':
-      event.waitUntil(sendClientMessage({ action: 'openapp' }));
+    case 'next':
+      event.waitUntil(sendClientMessage({ action: 'next' }));
       break;
-    case 'refresh':
-      event.waitUntil(sendClientMessage({ action: 'refresh' }));
+    case 'previous':
+      event.waitUntil(sendClientMessage({ action: 'previous' }));
       break;
   }
 });
 
-// 监听来自客户端的消息，当日期更新时更新小组件
+// Listen to messages from the clients to also update
+// the widget when a song is playing or when we're paused.
 self.onmessage = (event) => {
   switch (event.data.action) {
-    case 'update':
-      event.waitUntil(renderUpdatedWidget(event.data));
+    case 'playing':
+      event.waitUntil(renderPlayingStateWidget(event.data));
+      break;
+    case 'paused':
+      event.waitUntil(renderEmptyWidget());
       break;
   }
 };
@@ -56,35 +62,31 @@ async function renderEmptyWidget(event) {
   }
 
   if (!template && event && event.widget) {
-    // 如果传入事件，那是一个WidgetEvent
-    // 可以用它访问小组件模板和数据
-    // 并存储以便后续使用
-    try {
-      template = await (await fetch(event.widget.definition.msAcTemplate)).json();
-      // 单独存储actions以便需要时添加/删除
-      templateActions = template.actions || [];
-      initialData = await (await fetch(event.widget.definition.data)).json();
-    } catch (e) {
-      console.error('从定义加载模板或数据失败:', e);
-    }
+    // If an event is passed, then that's a WidgetEvent
+    // and we can use it to access the widget template and data.
+    // and store them locally for later use.
+    template = await (await fetch(event.widget.definition.msAcTemplate)).json();
+    // We store those separately so we can add/remove them when we want.
+    templateActions = template.actions;
+    initialData = await (await fetch(event.widget.definition.data)).json();
   } else if (!template && !event) {
-    // 如果没有事件且本地没有存储（不应该发生），
-    // 可以通过小组件定义获取信息
-    try {
-      const widget = await self.widgets.getByTag(WIDGET_TAG);
-      // 小组件可能尚未安装，退出
-      if (!widget) {
-        return;
-      }
-
-      template = await (await fetch(widget.definition.msAcTemplate)).json();
-      // 单独存储actions以便需要时添加/删除
-      templateActions = template.actions || [];
-      initialData = await (await fetch(widget.definition.data)).json();
-    } catch (e) {
-      console.error('通过标签获取模板或数据失败:', e);
+    // If, by any chance we don't have an event and nothing was
+    // stored locally (which shouldn't happen), then we can
+    // get the widget definition and get the info this way.
+    const widget = await self.widgets.getByTag(WIDGET_TAG);
+    // The widget might not have been installed yet. Bail out.
+    if (!widget) {
+      return;
     }
+
+    template = await (await fetch(widget.definition.msAcTemplate)).json();
+    // We store those separately so we can add/remove them when we want.
+    templateActions = template.actions;
+    initialData = await (await fetch(widget.definition.data)).json();
   }
+
+  // Disable the actions.
+  template.actions = [];
 
   try {
     await self.widgets.updateByTag(WIDGET_TAG, {
@@ -92,14 +94,17 @@ async function renderEmptyWidget(event) {
       data: JSON.stringify(initialData)
     });
   } catch (e) {
-    console.error('更新小组件失败', e);
+    console.log('Failed to update widget', e);
   }
 }
 
-async function renderUpdatedWidget(data) {
+async function renderPlayingStateWidget(data) {
   if (!self.widgets || !template) {
     return;
   }
+
+  // Enable the actions.
+  template.actions = templateActions;
 
   const payload = {
     template: JSON.stringify(template),
@@ -109,22 +114,6 @@ async function renderUpdatedWidget(data) {
   try {
     await self.widgets.updateByTag(WIDGET_TAG, payload);
   } catch (e) {
-    console.error('更新小组件失败', e);
+    console.log('Failed to update widget', e);
   }
 }
-
-// 获取当前日期的四化数据
-async function getSiHuaData() {
-  const today = new Date();
-  const heavenlyStem = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
-  const earthlyBranch = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
-  const sihuaTypes = ['禄', '权', '科', '忌'];
-  
-  // 简化的四化数据模拟
-  return {
-    heavenlyStem: heavenlyStem[today.getDate() % 10],
-    earthlyBranch: earthlyBranch[today.getDate() % 12],
-    dailySihua: `${heavenlyStem[today.getDate() % 10]}${earthlyBranch[today.getDate() % 12]}日 • 天同(禄)、天机(权)、太阳(科)、武曲(忌)`,
-    userId: "user1"
-  };
-} 
