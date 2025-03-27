@@ -2,74 +2,48 @@
   "name": "流日生年四化",
   "short_name": "四化组件",
   "description": "紫微斗数流日生年四化Windows小组件",
-  "start_url": "index.html",
+  "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#e9eeea",
+  "background_color": "#a8b0a8",
   "theme_color": "#a8b0a8",
-  "widgets": [
-    {
-      "name": "PWAmp mini player",
-      "description": "widget to control the PWAmp music player",
-      "tag": "pwamp",
-      "template": "pwamp-template",
-      "type": "application/json",
-      "screenshots": [
-        {
-          "src": "./zw.png",
-          "sizes": "600x400",
-          "label": "The PWAmp mini-player widget"
-        }
-      ],
-      "icons": [
-        {
-          "src": "../zw.png",
-          "sizes": "16x16"
-        }
-      ],
-      "auth": false,
-      "update": 86400
-    }
-  ],
   "icons": [
     {
-      "src": "icons/zw.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/zw.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/zw.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/zw.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/zw.png",
-      "sizes": "152x152",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/zw.png",
+      "src": "icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/zw.png",
-      "sizes": "384x384",
+      "src": "icons/icon-512x512.png", 
+      "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "icons/zw.png",
+      "src": "icons/maskable_icon.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "widgets": [
+    {
+      "name": "流日生年四化组件",
+      "short_name": "四化组件",
+      "description": "显示当前流日生年四化信息",
+      "tag": "sihua",
+      "ms_ac_template": "widgets/widget-template.json",
+      "icons": [
+        {
+          "src": "icons/widget-icon.png",
+          "sizes": "192x192"
+        }
+      ],
+      "screenshots": [
+        {
+          "src": "icons/widget-screenshot.png",
+          "sizes": "540x480",
+          "label": "流日生年四化组件"
+        }
+      ]
     }
   ]
 } 

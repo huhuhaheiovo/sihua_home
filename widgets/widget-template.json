@@ -1,0 +1,38 @@
+{
+  "schema": "https://schema.widgetjs.org/2023/alpha.01/",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "流日生年四化",
+          "wrap": true,
+          "weight": "Bolder",
+          "size": "Medium"
+        },
+        {
+          "type": "TextBlock",
+          "text": "${dailySihua}",
+          "wrap": true
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "打开应用",
+      "url": "/"
+    }
+  ],
+  "refresh": {
+    "userIds": [
+      "${userId}"
+    ],
+    "interval": "21600"
+  },
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+} 
