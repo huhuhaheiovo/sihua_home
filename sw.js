@@ -1,14 +1,22 @@
+// 导入小组件处理逻辑
+importScripts('sw-widgets.js');
+
+// 缓存名称和版本
 const CACHE_NAME = 'sihua-widget-cache-v1';
+
+// 需要缓存的资源列表
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/pattern.min.css',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png',
-  '/icons/maskable_icon.png',
-  '/icons/widget-icon.png',
-  '/icons/widget-screenshot.png',
-  '/widgets/widget-template.json',
+  './',
+  './index.html',
+  './pattern.min.css',
+  './icons/icon-192x192.png',
+  './icons/icon-512x512.png',
+  './icons/maskable_icon.png',
+  './icons/widget-icon.png',
+  './icons/widget-screenshot.png',
+  './widgets/widget-template.json',
+  './widgets/widget-data.json',
+  './sw-widgets.js',
   'https://cdn.jsdelivr.net/npm/iztro/dist/iztro.min.js'
 ];
 
@@ -119,7 +127,7 @@ self.addEventListener('fetch', function(event) {
     );
 });
 
-// Windows小组件更新事件处理
+// 后台同步事件处理
 self.addEventListener('periodicsync', function(event) {
   if (event.tag === 'sihua-widget-update') {
     event.waitUntil(updateWidgetData());

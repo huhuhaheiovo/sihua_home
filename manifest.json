@@ -2,23 +2,24 @@
   "name": "流日生年四化",
   "short_name": "四化组件",
   "description": "紫微斗数流日生年四化Windows小组件",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#a8b0a8",
   "theme_color": "#a8b0a8",
   "icons": [
     {
-      "src": "icons/icon-192x192.png",
+      "src": "./icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-512x512.png", 
+      "src": "./icons/icon-512x512.png", 
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "icons/maskable_icon.png",
+      "src": "./icons/maskable_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -30,18 +31,19 @@
       "short_name": "四化组件",
       "description": "显示当前流日生年四化信息",
       "tag": "sihua",
-      "ms_ac_template": "widgets/widget-template.json",
-      "icons": [
-        {
-          "src": "icons/widget-icon.png",
-          "sizes": "192x192"
-        }
-      ],
+      "ms_ac_template": "./widgets/widget-template.json",
+      "data": "./widgets/widget-data.json",
       "screenshots": [
         {
-          "src": "icons/widget-screenshot.png",
+          "src": "./icons/widget-screenshot.png",
           "sizes": "540x480",
           "label": "流日生年四化组件"
+        }
+      ],
+      "icons": [
+        {
+          "src": "./icons/widget-icon.png",
+          "sizes": "192x192"
         }
       ],
       "auth": false,

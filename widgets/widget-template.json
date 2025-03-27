@@ -1,7 +1,5 @@
 {
-  "schema": "https://schema.widgetjs.org/2023/alpha.01/",
   "type": "AdaptiveCard",
-  "version": "1.5",
   "body": [
     {
       "type": "Container",
@@ -23,16 +21,20 @@
   ],
   "actions": [
     {
+      "type": "Action.Execute",
+      "title": "刷新",
+      "verb": "refresh",
+      "style": "positive",
+      "iconUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABWUlEQVRIie2UvUoDQRSFz42/hY0WPoAgWGmjpZ2FIGJpYxkQbLTyBSx9ARsfQCSFnYKNINj4BFaCEIiF2mUTXUli4rg7sxs3VoLgB8POnHvOmbmzA/zXX1WprIyxeAr0gVqaOZXo0iowAC6AZ8DFOQBnwICmdjSEhgCnIjwAroET4AZngFMTi/VlJQk4Exim7jmgAdwBDXcmwHG5Eu7UE3H6AbYIJcCeEF4DC2laYJ3QLtyJWM8RYCiE9zUE3gXxnTtrrGuEVoC+ADZrCLSE6J0HsA1MHBEcGqZ+WxXdygpsiPBNRkXH0aBdYF3V1kQGtdR6lrNPHDXApyK8k5ULsFtkCnqq+Bmwk1lNWadxe7EXw94CWIrRbwJvMbE9YE6XYDZO4FDX2k75Ag152hHNvplJ4E1U4G0SzYxuQSX6jg8LETtZgwlQhroQmOjYtQnUx7j4RcyU1wcdxV9QIlG+vAAAAABJRU5ErkJggg=="
+    },
+    {
       "type": "Action.OpenUrl",
       "title": "打开应用",
-      "url": "/"
+      "url": "./index.html",
+      "style": "positive",
+      "iconUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAr0lEQVRIie2TwQ2DMBBFH1EOwQFOwYljL5QOuuiADkgXyJUDR1ogSFDHsbErpZL5kme//2zZBmiM4AYsgQb4Ai9gB8yveG+BveDdgUXp8RR4RMYdWAI/4BNpdp6TpZCXKUd+gHWkmbjEzOlPMCn4OfdCkfgzJjWAF6wsPgJboe9QeCkCcEgAtoaH7wJwVgL2SoBVZeNaCVipAKnmn/yDAvBWAI6KwwN35X/QmA43yHAwRjuGqmwAAAAASUVORK5CYII="
     }
   ],
-  "refresh": {
-    "userIds": [
-      "${userId}"
-    ],
-    "interval": "21600"
-  },
-  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5"
 } 

@@ -1058,28 +1058,49 @@
 
         // 注册Service Worker
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js', { scope: './' })
-                    .then(registration => {
-                        console.log('ServiceWorker注册成功:', registration.scope);
-                        debugLog('ServiceWorker注册成功:' + registration.scope);
-                        
-                        // 如果支持小组件，尝试注册小组件功能
-                        if ('widgets' in window) {
-                            debugLog('检测到widgets全局对象');
-                            try {
-                                // 尝试注册小组件
-                                window.widgets.register('sihua');
-                                debugLog('小组件注册成功');
-                            } catch (e) {
-                                debugLog('小组件注册失败: ' + e.message);
+            window.addEventListener('load', async () => {
+                try {
+                    const registration = await navigator.serviceWorker.register('./sw.js', { scope: './' });
+                    console.log('ServiceWorker注册成功:', registration.scope);
+                    debugLog('ServiceWorker注册成功:' + registration.scope);
+                    
+                    // 等待service worker准备就绪
+                    await navigator.serviceWorker.ready;
+                    
+                    // 收到Service Worker的消息
+                    navigator.serviceWorker.addEventListener('message', (event) => {
+                        if (event.data && event.data.action) {
+                            switch (event.data.action) {
+                                case 'openapp':
+                                    // 处理打开应用的消息
+                                    console.log('接收到打开应用的消息');
+                                    debugLog('接收到打开应用的消息');
+                                    break;
+                                case 'refresh':
+                                    // 处理刷新的消息
+                                    console.log('接收到刷新的消息');
+                                    debugLog('接收到刷新的消息');
+                                    updateSiHuaInfo(new Date());
+                                    
+                                    // 更新小组件
+                                    if (navigator.serviceWorker.controller) {
+                                        const data = {
+                                            action: 'update',
+                                            dailySihua: document.getElementById('calls-info').innerHTML,
+                                            heavenlyStem: "甲",
+                                            earthlyBranch: "子"
+                                        };
+                                        navigator.serviceWorker.controller.postMessage(data);
+                                    }
+                                    break;
                             }
                         }
-                    })
-                    .catch(error => {
-                        console.log('ServiceWorker注册失败:', error);
-                        debugLog('ServiceWorker注册失败:' + error);
                     });
+                    
+                } catch (error) {
+                    console.log('ServiceWorker注册失败:', error);
+                    debugLog('ServiceWorker注册失败:' + error);
+                }
             });
         }
 
