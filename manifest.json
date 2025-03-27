@@ -6,6 +6,30 @@
   "display": "standalone",
   "background_color": "#e9eeea",
   "theme_color": "#a8b0a8",
+  "widgets": [
+    {
+      "name": "PWAmp mini player",
+      "description": "widget to control the PWAmp music player",
+      "tag": "pwamp",
+      "template": "pwamp-template",
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "./zw.png",
+          "sizes": "600x400",
+          "label": "The PWAmp mini-player widget"
+        }
+      ],
+      "icons": [
+        {
+          "src": "../zw.png",
+          "sizes": "16x16"
+        }
+      ],
+      "auth": false,
+      "update": 86400
+    }
+  ],
   "icons": [
     {
       "src": "icons/zw.png",
