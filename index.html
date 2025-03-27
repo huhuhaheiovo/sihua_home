@@ -1059,12 +1059,26 @@
         // 注册Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
+                navigator.serviceWorker.register('sw.js', { scope: './' })
                     .then(registration => {
                         console.log('ServiceWorker注册成功:', registration.scope);
+                        debugLog('ServiceWorker注册成功:' + registration.scope);
+                        
+                        // 如果支持小组件，尝试注册小组件功能
+                        if ('widgets' in window) {
+                            debugLog('检测到widgets全局对象');
+                            try {
+                                // 尝试注册小组件
+                                window.widgets.register('sihua');
+                                debugLog('小组件注册成功');
+                            } catch (e) {
+                                debugLog('小组件注册失败: ' + e.message);
+                            }
+                        }
                     })
                     .catch(error => {
                         console.log('ServiceWorker注册失败:', error);
+                        debugLog('ServiceWorker注册失败:' + error);
                     });
             });
         }
