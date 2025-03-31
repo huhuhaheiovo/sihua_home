@@ -3,8 +3,8 @@
   "body": [
     {
       "type": "TextBlock",
-      "size": "Medium",
-      "text": "Hello World",
+      "size": "Large",
+      "text": "${message}",
       "horizontalAlignment": "Center",
       "weight": "Bolder"
     }
