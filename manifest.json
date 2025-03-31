@@ -32,6 +32,23 @@
       ],
       "auth": false,
       "update": 86400
+    },
+    {
+      "name": "Hello World Widget",
+      "description": "默认显示Hello World的小组件",
+      "tag": "hello-world",
+      "ms_ac_template": "widgets/hello-world.json",
+      "data": "widgets/hello-world-data.json",
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "./Snipaste_2025-03-31_21-18-23.png",
+          "sizes": "600x400",
+          "label": "Hello World Widget"
+        }
+      ],
+      "auth": false,
+      "update": 86400
     }
   ]
 }
