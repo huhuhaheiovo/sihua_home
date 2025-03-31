@@ -1,166 +1,44 @@
 const WIDGET_TAG = 'pwamp';
 const HELLO_WIDGET_TAG = 'hello-world';
 
-// Storing our template and initial data locally.
-// These will be set the first time the widget is installed.
-// See renderEmptyWidget.
-let template = null;
-let templateActions = [];
-let initialData = null;
+// Listen to the widgetinstall event.
+self.addEventListener("widgetinstall", event => {
+  // The widget just got installed, render it using renderWidget.
+  // Pass the event.widget object to the function.
+  event.waitUntil(renderWidget(event.widget));
+});
 
-// Hello world widget
-let helloTemplate = null;
-let helloInitialData = null;
+async function renderWidget(widget) {
+  // Get the template and data URLs from the widget definition.
+  const templateUrl = widget.definition.msAcTemplate;
+  const dataUrl = widget.definition.data;
 
-async function sendClientMessage(data) {
-  const allClients = await clients.matchAll({
-    includeUncontrolled: true,
-    type: 'all'
-  });
-  allClients.forEach(client => {
-    client.postMessage(data);
-  });
+  // Fetch the template text and data.
+  const template = await (await fetch(templateUrl)).text();
+  const data = await (await fetch(dataUrl)).text();
+
+  // Render the widget with the template and data.
+  await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
 
-// Make sure to update the widget to its initial state  when
-// the service worker is activated.
-// Widgets may be installed before a SW is activated, and if we
-// don't update it now, it will be empty.
-self.addEventListener('activate', (event) => {
-  event.waitUntil(Promise.all([
-    renderEmptyWidget(),
-    renderHelloWorldWidget()
-  ]));
+
+// Update the widgets to their initial states
+// when the service worker is activated.
+self.addEventListener("activate", event => {
+  event.waitUntil(updateWidgets());
 });
 
-// Listen to the widgetinstall event in order to update the widget
-// when it gets installed the first time.
-self.addEventListener('widgetinstall', (event) => {
-  if (event.widget && event.widget.definition && event.widget.definition.tag === HELLO_WIDGET_TAG) {
-    event.waitUntil(renderHelloWorldWidget(event));
-  } else {
-    event.waitUntil(renderEmptyWidget(event));
-  }
-});
-
-// Listen to the widgetclick event to react to user actions in the widget.
-self.addEventListener('widgetclick', (event) => {
-  switch (event.action) {
-    case 'next':
-      event.waitUntil(sendClientMessage({ action: 'next' }));
-      break;
-    case 'previous':
-      event.waitUntil(sendClientMessage({ action: 'previous' }));
-      break;
-  }
-});
-
-// Listen to messages from the clients to also update
-// the widget when a song is playing or when we're paused.
-self.onmessage = (event) => {
-  switch (event.data.action) {
-    case 'playing':
-      event.waitUntil(renderPlayingStateWidget(event.data));
-      break;
-    case 'paused':
-      event.waitUntil(renderEmptyWidget());
-      break;
-  }
-};
-
-async function renderEmptyWidget(event) {
-  if (!self.widgets) {
+async function updateWidgets() {
+  // Get the widget that match the tag defined in the web app manifest.
+  const widget = await self.widgets.getByTag("pwamp");
+  if (!widget) {
     return;
   }
 
-  if (!template && event && event.widget) {
-    // If an event is passed, then that's a WidgetEvent
-    // and we can use it to access the widget template and data.
-    // and store them locally for later use.
-    template = await (await fetch(event.widget.definition.msAcTemplate)).json();
-    // We store those separately so we can add/remove them when we want.
-    templateActions = template.actions;
-    initialData = await (await fetch(event.widget.definition.data)).json();
-  } else if (!template && !event) {
-    // If, by any chance we don't have an event and nothing was
-    // stored locally (which shouldn't happen), then we can
-    // get the widget definition and get the info this way.
-    const widget = await self.widgets.getByTag(WIDGET_TAG);
-    // The widget might not have been installed yet. Bail out.
-    if (!widget) {
-      return;
-    }
+  // Using the widget definition, get the template and data.
+  const template = await (await fetch(widget.definition.msAcTemplate)).text();
+  const data = await (await fetch(widget.definition.data)).text();
 
-    template = await (await fetch(widget.definition.msAcTemplate)).json();
-    // We store those separately so we can add/remove them when we want.
-    templateActions = template.actions;
-    initialData = await (await fetch(widget.definition.data)).json();
-  }
-
-  // Disable the actions.
-  template.actions = [];
-
-  try {
-    await self.widgets.updateByTag(WIDGET_TAG, {
-      template: JSON.stringify(template),
-      data: JSON.stringify(initialData)
-    });
-  } catch (e) {
-    console.log('Failed to update widget', e);
-  }
-}
-
-async function renderPlayingStateWidget(data) {
-  if (!self.widgets || !template) {
-    return;
-  }
-
-  // Enable the actions.
-  template.actions = templateActions;
-
-  const payload = {
-    template: JSON.stringify(template),
-    data: JSON.stringify(data)
-  };
-
-  try {
-    await self.widgets.updateByTag(WIDGET_TAG, payload);
-  } catch (e) {
-    console.log('Failed to update widget', e);
-  }
-}
-
-// Hello World widget functions
-async function renderHelloWorldWidget(event) {
-  if (!self.widgets) {
-    return;
-  }
-
-  if (!helloTemplate && event && event.widget) {
-    // If an event is passed, then that's a WidgetEvent
-    // and we can use it to access the widget template and data.
-    helloTemplate = await (await fetch(event.widget.definition.msAcTemplate)).json();
-    helloInitialData = await (await fetch(event.widget.definition.data)).json();
-  } else if (!helloTemplate && !event) {
-    // If, by any chance we don't have an event and nothing was
-    // stored locally (which shouldn't happen), then we can
-    // get the widget definition and get the info this way.
-    const widget = await self.widgets.getByTag(HELLO_WIDGET_TAG);
-    // The widget might not have been installed yet. Bail out.
-    if (!widget) {
-      return;
-    }
-
-    helloTemplate = await (await fetch(widget.definition.msAcTemplate)).json();
-    helloInitialData = await (await fetch(widget.definition.data)).json();
-  }
-
-  try {
-    await self.widgets.updateByTag(HELLO_WIDGET_TAG, {
-      template: JSON.stringify(helloTemplate),
-      data: JSON.stringify(helloInitialData)
-    });
-  } catch (e) {
-    console.log('Failed to update hello world widget', e);
-  }
+  // Render the widget with the template and data.
+  await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
