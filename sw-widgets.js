@@ -29,8 +29,15 @@ self.addEventListener("activate", event => {
 });
 
 async function updateWidgets() {
+  // 更新pwamp小组件
+  await updatePwampWidget();
+  // 更新hello-world小组件
+  await updateHelloWorldWidget();
+}
+
+async function updatePwampWidget() {
   // Get the widget that match the tag defined in the web app manifest.
-  const widget = await self.widgets.getByTag("pwamp");
+  const widget = await self.widgets.getByTag(WIDGET_TAG);
   if (!widget) {
     return;
   }
@@ -42,3 +49,29 @@ async function updateWidgets() {
   // Render the widget with the template and data.
   await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
+
+async function updateHelloWorldWidget() {
+  // 获取hello-world小组件
+  const widget = await self.widgets.getByTag(HELLO_WIDGET_TAG);
+  if (!widget) {
+    return;
+  }
+
+  // 获取模板和数据
+  const template = await (await fetch(widget.definition.msAcTemplate)).text();
+  const data = await (await fetch(widget.definition.data)).text();
+
+  // 渲染小组件
+  await self.widgets.updateByTag(widget.definition.tag, {template, data});
+}
+
+self.addEventListener('widgetclick', (event) => {
+  switch (event.action) {
+    case 'previous-song':
+      // Application logic to play the previous song...
+      break;
+    case 'next-song':
+      // Application logic to play the next song...
+      break;
+  }
+});
