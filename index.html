@@ -1,90 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US" dir="ltr">
 <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1">
-    <title>pwamp</title>
-    <link rel="icon" href="favicon.ico" sizes="any"/>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
-    <link rel="manifest" href="manifest.json"/>
-    <meta name="theme-color" content="#181c25"/>
-    <link rel="stylesheet" href="about.css"/>
-    <link rel="stylesheet" href="skins/default.css" id="default-stylesheet"/>
-    <meta http-equiv="origin-trial"
-          content="Ag0dq8uEMbI39TwGGfxxyR3EG4tXDnqIxBr4kwlYh7sV/HDAA2FS4k9OGqPczceHZJYs52vwSbwrSslVa/lzNr0AAAB0eyJvcmlnaW4iOiJodHRwczovL21pY3Jvc29mdGVkZ2UuZ2l0aHViLmlvOjQ0MyIsImlzU3ViZG9tYWluIjpmYWxzZSwiZmVhdHVyZSI6Im1zV2ViQXBwV2lkZ2V0cyIsImV4cGlyeSI6MTY4NTU3NzYwMH0=">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2" />
+  <link rel="stylesheet" href="converter.css">
+  <link rel="manifest" href="/manifest.json">
+  <title>Temperature converter</title>
 </head>
 <body>
-<div
-        id="wco-drag"
-        style="
-        position: fixed;
-        top: env(titlebar-area-y);
-        left: env(titlebar-area-x);
-        height: env(titlebar-area-height);
-        width: env(titlebar-area-width);
-        -webkit-app-region: drag;
-      "
-></div>
-
-<section class="player">
-    <div class="playhead-control">
-        <span id="currenttime">00:00</span>
-        <input
-                type="range"
-                id="playhead"
-                aria-label="Current position in song"
-                value="0"
-        />
-        <span id="duration">00:00</span>
-    </div>
-</section>
-
-<section class="playlist">
-    <p class="empty-playlist">
-        No songs in playlist, drag songs here or click <strong>+</strong>
-    </p>
-    <ol class="songs"></ol>
-</section>
-
-<section class="current-song"></section>
-
-<section class="volume">
-    <label for="volume" lang="en" translate="no">Volume</label>
-    <input type="range" id="volume" min="0" max="10" value="10"/>
-</section>
-
-
-
-<canvas id="waveform"></canvas>
-
-<div id="song-actions-popover" popover>
-    <button class="popover-item song-action" id="song-action-copy-uri">
-        Copy link
-    </button>
-    <button class="popover-item song-action" id="song-action-export">
-        Export...
-    </button>
-    <button class="popover-item song-action" id="song-action-share">
-        Share...
-    </button>
-    <button class="popover-item song-action" id="song-action-delete">
-        Delete
-    </button>
-</div>
-
-
-<script src="popover.min.js"></script>
-
-<script type="module" src="app.js"></script>
-<script type="module" src="file-launch-handler.js"></script>
-<script type="module" src="protocol-launch-handler.js"></script>
-<script type="module" src="share-target-launch-handler.js"></script>
-
-<!--<script>-->
-<!--  if ("serviceWorker" in navigator) {-->
-<!--    navigator.serviceWorker.register("./sw.js");-->
-<!--  }-->
-<!--</script>-->
+<form id="converter">
+  <label for="input-temp">temperature</label>
+  <input type="text" id="input-temp" name="input-temp" value="20" />
+  <label for="input-unit">from</label>
+  <select id="input-unit" name="input-unit">
+    <option value="c" selected>Celsius</option>
+    <option value="f">Fahrenheit</option>
+    <option value="k">Kelvin</option>
+  </select>
+  <label for="output-unit">to</label>
+  <select id="output-unit" name="output-unit">
+    <option value="c">Celsius</option>
+    <option value="f" selected>Fahrenheit</option>
+    <option value="k">Kelvin</option>
+  </select>
+  <output name="output-temp" id="output-temp" for="input-temp input-unit output-unit">68 F</output>
+</form>
+<script src="converter.js"></script>
+<script>
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' });
+  }
+</script>
 </body>
 </html>
