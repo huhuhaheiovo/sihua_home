@@ -20,7 +20,7 @@
       "description": "hello world",
       "tag": "hello",
       "template": "hello-template",
-      "ms_ac_template": "widgets/mini-player-template.json",
+      "ms_ac_template": "widgets/mini-player.json",
       "data": "widgets/mini-player-data.json",
       "type": "application/json",
       "screenshots": [
