@@ -34,3 +34,5 @@ self.addEventListener('fetch', event => {
         }
     })());
 });
+// Handle the mini-player widget updates in another script.
+importScripts('./sw-widgets.js');
