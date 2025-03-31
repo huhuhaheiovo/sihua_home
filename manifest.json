@@ -13,5 +13,25 @@
       "src": "/icon512.png",
       "sizes": "512x512"
     }
+  ],
+  "widgets": [
+    {
+      "name": "hello mini player",
+      "description": "hello world",
+      "tag": "hello",
+      "template": "hello-template",
+      "ms_ac_template": "widgets/mini-player-template.json",
+      "data": "widgets/mini-player-data.json",
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "./Snipaste_2025-03-31_21-18-23.png",
+          "sizes": "600x400",
+          "label": "The ziwei mini-player widget"
+        }
+      ],
+      "auth": false,
+      "update": 86400
+    }
   ]
 }
