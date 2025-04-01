@@ -65,13 +65,13 @@ async function updateHelloWorldWidget() {
   await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
 
-self.addEventListener('widgetclick', (event) => {
-  switch (event.action) {
-    case 'previous-song':
-      // 播放上一首歌的应用逻辑...
-      break;
-    case 'next-song':
-      // 播放下一首歌的应用逻辑...
-      break;
-  }
-});
+// self.addEventListener('widgetclick', (event) => {
+//   switch (event.action) {
+//     case 'previous-song':
+//       // 播放上一首歌的应用逻辑...
+//       break;
+//     case 'next-song':
+//       // 播放下一首歌的应用逻辑...
+//       break;
+//   }
+// });
