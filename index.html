@@ -5,64 +5,74 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2"/>
     <link rel="stylesheet" href="converter.css">
-    <link rel="stylesheet" href="about.css"/>
-    <link rel="stylesheet" href="skins/default.css" id="default-stylesheet"/>
+  <link rel="stylesheet" href="about.css" />
+  <link rel="stylesheet" href="skins/default.css" id="default-stylesheet" />
     <link rel="manifest" href="/manifest.json">
     <title>Temperature converter</title>
 </head>
 <body>
-<div id="cardContainer"></div>
+<section class="player">
+    <div class="player-controls">
+        <button
+                class="player-control-button main-button"
+                id="previous"
+                title="Go to the previous song or the beginning of song (P)"
+        >
+            <span lang="en" translate="no">Previous</span>
+        </button>
+        <button
+                class="player-control-button main-button"
+                id="playpause"
+                title="Play (space)"
+        >
+            <span lang="en" translate="no">Play</span>
+        </button>
+        <button
+                class="player-control-button main-button"
+                id="next"
+                title="Go to the next song (N)"
+        >
+            <span lang="en" translate="no">aaaaaaa</span>
+        </button>
+        <button
+                class="main-button"
+                id="toggle-visualizer"
+                title="Show visualizer (V)"
+        >
+            <span lang="en" translate="no">Show visualizer</span>
+        </button>
+    </div>
 
+    <div class="playhead-control">
+        <span id="currenttime">00:00</span>
+        <input
+                type="range"
+                id="playhead"
+                aria-label="Current position in song"
+                value="0"
+        />
+        <span id="duration">00:00</span>
+    </div>
+</section>
+<form id="converter">
+    <label for="input-temp">temperature</label>
+    <input type="text" id="input-temp" name="input-temp" value="20"/>
+    <label for="input-unit">from</label>
+    <select id="input-unit" name="input-unit">
+        <option value="c" selected>Celsius</option>
+        <option value="f">Fahrenheit</option>
+        <option value="k">Kelvin</option>
+    </select>
+    <label for="output-unit">to</label>
+    <select id="output-unit" name="output-unit">
+        <option value="c">Celsius</option>
+        <option value="f" selected>Fahrenheit</option>
+        <option value="k">Kelvin</option>
+    </select>
+    <output name="output-temp" id="output-temp" for="input-temp input-unit output-unit">68 F</output>
+</form>
+<script src="converter.js"></script>
 <script>
-    // 计算当前时间到周五的剩余天数
-    function getDaysUntilFriday() {
-        const now = new Date();
-        const today = now.getDay();  // 获取今天是星期几（0=周日，1=周一... 5=周五）
-        let daysUntilFriday = 5 - today; // 计算距离周五的天数
-
-        if (daysUntilFriday < 0) {
-            daysUntilFriday += 7;  // 如果今天是周六或周日，算到下周五
-        }
-        return daysUntilFriday;
-    }
-    // 生成 Adaptive Card 数据
-    function getAdaptiveCard() {
-        const daysLeft = getDaysUntilFriday(); // 计算距离周五的天数
-        return {
-            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-            "type": "AdaptiveCard",
-            "version": "1.6",
-            "body": [
-                {
-                    "type": "TextBlock",
-                    "text": "距离周五还有：",
-                    "weight": "Bolder",
-                    "size": "Medium",
-                    "horizontalAlignment": "Center"
-                },
-                {
-                    "type": "TextBlock",
-                    "text": daysLeft + " 天",
-                    "size": "ExtraLarge",
-                    "weight": "Bolder",
-                    "color": "Attention",
-                    "horizontalAlignment": "Center"
-                }
-            ]
-        };
-    }
-
-    // 渲染 Adaptive Card
-    function renderAdaptiveCard() {
-        const adaptiveCard = new AdaptiveCards.AdaptiveCard();
-        adaptiveCard.parse(getAdaptiveCard());
-
-        const cardContainer = document.getElementById("cardContainer");
-        cardContainer.innerHTML = ""; // 清空旧的卡片
-        cardContainer.appendChild(adaptiveCard.render());
-    }
-
-    renderAdaptiveCard(); // 渲染卡片
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js', {scope: '/'});
     }
