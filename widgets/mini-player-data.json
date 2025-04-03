@@ -3,7 +3,7 @@
   "season": 2019,
   "week": 1,
   "season_type": "regular",
-  "start_date": "2019-08-31T19:30:00Z",
+  "start_date": "${(() => { const userLocale = Intl.DateTimeFormat().resolvedOptions().locale; const timeZone = userLocale.includes('zh') ? 'Asia/Shanghai' : 'America/New_York'; return new Date().toLocaleString(userLocale, { timeZone }); })()}",
   "neutral_site": false,
   "conference_game": false,
   "attendance": null,
