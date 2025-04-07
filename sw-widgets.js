@@ -30,16 +30,15 @@ function replaceDatePlaceholders(dataString) {
   const now = new Date();
   
   // 获取ISO格式的日期字符串
-  const isoDate = now.toISOString();
+  // const isoDate = now.toDateString()
   
   // 格式化日期为 yyyy-mm-dd hh:mm:ss
-  const pad = (num) => String(num).padStart(2, '0');
-  const formattedDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  // const pad = (num) => String(num).padStart(2, '0');
+  // const formattedDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
   
   // 替换数据中的占位符
-  let updatedData = dataString.replace(/"2000-00-00T00:00:00Z"/g, `"${isoDate}"`);
-  updatedData = updatedData.replace(/"2000-00-00T00:00:00Z"/g, `"${formattedDate}"`);
-  
+  let updatedData = dataString.replace(/"2000-00-00T00:00:00Z"/g, `"${now}"`);
+  // updatedData = updatedData.replace(/"2000-00-00T00:00:00Z"/g, `"${formattedDate}"`);
   return updatedData;
 }
 
