@@ -8,7 +8,14 @@ const WIDGET_TAG = 'hello';
 self.addEventListener("activate", event => {
   event.waitUntil(updateWidgets());
   // 设置定期更新小组件
-  setInterval(updateWidgets, 1000);
+  setInterval(async () => {
+    // 获取所有注册的小组件
+    const widgets = await self.widgets.getAll();
+    // 更新每个小组件
+    for (const widget of widgets) {
+      await renderWidget(widget);
+    }
+  }, 1000);
 });
 
 
