@@ -6,7 +6,7 @@ const WIDGET_TAG = 'hello';
 // 当服务工作线程被激活时，
 // 将小组件更新到初始状态
 self.addEventListener("activate", event => {
-  event.waitUntil(renderWidget());
+  // event.waitUntil(renderWidget());
   // 设置定期更新小组件
   // setInterval(updateWidgets, 1000);
 });
@@ -16,7 +16,7 @@ self.addEventListener("activate", event => {
 self.addEventListener("widgetresume", event => {
   // 小组件刚刚安装，使用renderWidget渲染它
   // 将event.widget对象传递给函数
-  event.waitUntil(renderWidget(event.widget));
+  // event.waitUntil(renderWidget(event.widget));
 });
 
 
@@ -25,6 +25,7 @@ self.addEventListener("widgetinstall", event => {
   // 小组件刚刚安装，使用renderWidget渲染它
   // 将event.widget对象传递给函数
   event.waitUntil(renderWidget(event.widget));
+  alert("widgetinstall")
 });
 
 self.addEventListener("widgetuninstall", event => {
