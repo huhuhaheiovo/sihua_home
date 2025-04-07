@@ -27,7 +27,7 @@ async function renderWidget(widget) {
 // 替换日期占位符的函数
 function replaceDatePlaceholders(dataString) {
   // 创建当前日期对象
-  const now = new Date();
+  const now = new Date().toDateString();
   
   // 获取ISO格式的日期字符串
   // const isoDate = now.toDateString()
