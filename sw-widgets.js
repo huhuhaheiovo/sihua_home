@@ -24,23 +24,6 @@ async function renderWidget(widget) {
   await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
 
-// 替换日期占位符的函数
-function replaceDatePlaceholders(dataString) {
-  // 创建当前日期对象
-  const now = new Date().toDateString();
-  
-  // 获取ISO格式的日期字符串
-  // const isoDate = now.toDateString()
-  
-  // 格式化日期为 yyyy-mm-dd hh:mm:ss
-  // const pad = (num) => String(num).padStart(2, '0');
-  // const formattedDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-  
-  // 替换数据中的占位符
-  let updatedData = dataString.replace(/"2000-00-00T00:00:00Z"/g, `"${now}"`);
-  // updatedData = updatedData.replace(/"2000-00-00T00:00:00Z"/g, `"${formattedDate}"`);
-  return updatedData;
-}
 
 // 当服务工作线程被激活时，
 // 将小组件更新到初始状态
@@ -55,7 +38,7 @@ self.addEventListener("activate", event => {
     for (const widget of widgets) {
       await renderWidget(widget);
     }
-  }, 10000);
+  }, 1000);
 });
 
 async function updateWidgets() {
@@ -110,4 +93,24 @@ self.addEventListener('widgetclick', (event) => {
       // 播放下一首歌的应用逻辑...
       break;
   }
+
+
+
+
+
+
+  // 替换日期占位符的函数
+  function replaceDatePlaceholders(dataString) {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+
+
 });
