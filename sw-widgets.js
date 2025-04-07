@@ -19,11 +19,20 @@ async function renderWidget(widget) {
   
   // 替换数据中的日期占位符
   data = replaceDatePlaceholders(data);
-
   // 使用模板和数据渲染小组件
   await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
-
+// 替换日期占位符的函数
+function replaceDatePlaceholders(dataString) {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
 
 // 当服务工作线程被激活时，
 // 将小组件更新到初始状态
@@ -93,24 +102,6 @@ self.addEventListener('widgetclick', (event) => {
       // 播放下一首歌的应用逻辑...
       break;
   }
+},
 
-
-
-
-
-
-  // 替换日期占位符的函数
-  function replaceDatePlaceholders(dataString) {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  }
-
-
-
-});
+);
