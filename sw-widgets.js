@@ -31,9 +31,9 @@ function replaceDatePlaceholders(dataString) {
 // 当服务工作线程被激活时，
 // 将小组件更新到初始状态
 self.addEventListener("activate", event => {
-  event.waitUntil(updateWidgets());
+  // event.waitUntil(updateWidgets());
   // 设置定期更新小组件
-  setInterval(updateWidgets, 1000);
+  setInterval(updateWidgets, 5000);
 });
 
 async function updateWidgets(event) {
