@@ -12,24 +12,28 @@ async function renderWidget(widget) {
   // 从小组件定义中获取模板和数据URL
   const templateUrl = widget.definition.msAcTemplate;
   const dataUrl = widget.definition.data;
+
   // 获取模板文本和数据
   const template = await (await fetch(templateUrl)).text();
   let data = await (await fetch(dataUrl)).text();
-  let now   =replaceDatePlaceholders()
-  let updatedData = data.replace(/"2000-00-00T00:00:00Z"/g, `"${now}"`);
+
+  // 替换数据中的日期占位符
+  data = replaceDatePlaceholders(data);
+
   // 使用模板和数据渲染小组件
-  await self.widgets.updateByTag(widget.definition.tag, {template, updatedData});
+  await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
+
 // 替换日期占位符的函数
-function replaceDatePlaceholders() {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+function replaceDatePlaceholders(dataString) {
+
+
+
+
+  // 替换数据中的占位符
+  let updatedData = dataString.replace(/"2000-00-00T00:00:00Z"/g, `"${now}"`);
+  // updatedData = updatedData.replace(/"2000-00-00T00:00:00Z"/g, `"${formattedDate}"`);
+  return updatedData;
 }
 
 // 当服务工作线程被激活时，
@@ -45,7 +49,7 @@ self.addEventListener("activate", event => {
     for (const widget of widgets) {
       await renderWidget(widget);
     }
-  }, 1000);
+  }, 10000);
 });
 
 async function updateWidgets() {
@@ -100,6 +104,4 @@ self.addEventListener('widgetclick', (event) => {
       // 播放下一首歌的应用逻辑...
       break;
   }
-},
-
-);
+});
