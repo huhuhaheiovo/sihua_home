@@ -20,7 +20,7 @@ self.addEventListener("widgetinstall", event => {
 });
 
 self.addEventListener("widgetuninstall", event => {
-  event.waitUntil(onWidgetUninstall(event.widget));
+  event.waitUntil(renderWidget(event.widget));
 });
 
 async function renderWidget(widget) {
@@ -50,21 +50,4 @@ function replaceDatePlaceholders(dataString) {
   return dataString.replace(/"2000-00-00T00:00:00Z"/g, `"${now}"`);
 }
 
-
-
-async function updateWidgets() {
-  const widget = await self.widgets.getByTag(WIDGET_TAG);
-  if (!widget) {
-    return;
-  }
-  // 使用小组件定义，获取模板和数据
-  const template = await (await fetch(widget.definition.msAcTemplate)).text();
-  let data = await (await fetch(widget.definition.data)).text();
-
-  // 替换数据中的日期占位符
-  data = replaceDatePlaceholders(data);
-
-  // 使用模板和数据渲染小组件
-  await self.widgets.updateByTag(widget.definition.tag, {template, data});
-}
 
