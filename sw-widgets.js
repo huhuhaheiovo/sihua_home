@@ -32,14 +32,9 @@ function replaceDatePlaceholders(dataString) {
   // 获取ISO格式的日期字符串
   const isoDate = now.toISOString();
   
-  // 获取本地化的格式化日期字符串
-  const userLocale = 'zh-CN'; // 默认使用中文
-  const formattedDate = now.toLocaleDateString(userLocale, {
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric', 
-    weekday: 'long'
-  });
+  // 格式化日期为 yyyy-mm-dd hh:mm:ss
+  const pad = (num) => String(num).padStart(2, '0');
+  const formattedDate = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
   
   // 替换数据中的占位符
   let updatedData = dataString.replace(/"2000-00-00T00:00:00Z"/g, `"${isoDate}"`);
@@ -53,8 +48,15 @@ function replaceDatePlaceholders(dataString) {
 self.addEventListener("activate", event => {
   event.waitUntil(updateWidgets());
   
-  // 设置定期更新小组件
-  setInterval(updateWidgets, 10000); // 每分钟更新一次
+  // 设置定期更新小组件 - 每10秒更新一次
+  setInterval(async () => {
+    // 获取所有注册的小组件
+    const widgets = await self.widgets.getAll();
+    // 更新每个小组件
+    for (const widget of widgets) {
+      await renderWidget(widget);
+    }
+  }, 10000);
 });
 
 async function updateWidgets() {
