@@ -15,15 +15,13 @@ async function renderWidget(widget) {
 
   // 获取模板文本和数据
   const template = await (await fetch(templateUrl)).text();
-  let data = await (await fetch(dataUrl)).text();
-  
-  // 替换数据中的日期占位符
-  data = replaceDatePlaceholders(data);
+  let data= replaceDatePlaceholders();
+  let updatedData = dataString.replace(/"2000-00-00T00:00:00Z"/g, `"${data}"`);
   // 使用模板和数据渲染小组件
-  await self.widgets.updateByTag(widget.definition.tag, {template, data});
+  await self.widgets.updateByTag(widget.definition.tag, {template, updatedData});
 }
 // 替换日期占位符的函数
-function replaceDatePlaceholders(dataString) {
+function replaceDatePlaceholders() {
   const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始
