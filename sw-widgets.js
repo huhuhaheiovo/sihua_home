@@ -16,7 +16,7 @@ self.addEventListener("activate", event => {
 self.addEventListener("widgetresume", event => {
   // 小组件刚刚安装，使用renderWidget渲染它
   // 将event.widget对象传递给函数
-  event.waitUntil(renderWidget());
+  event.waitUntil(renderWidget(event.widget));
 });
 
 
