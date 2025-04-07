@@ -20,7 +20,7 @@ self.addEventListener("widgetinstall", event => {
 });
 
 self.addEventListener("widgetuninstall", event => {
-  event.waitUntil(renderWidget(event.widget));
+  event.waitUntil(onWidgetUninstall(event.widget));
 });
 
 async function renderWidget(widget) {
@@ -39,7 +39,13 @@ async function renderWidget(widget) {
 
 
 
-
+async function onWidgetUninstall(widget) {
+  //卸载时，注销周期同步。
+  //如果这是最后一个小部件实例，那么注销周期性同步。
+  if (widget.instances.length === 1 && "update" in widget.definition) {
+    await self.registration.periodicSync.unregister(widget.definition.tag);
+  }
+}
 
 
 // 替换日期占位符的函数
