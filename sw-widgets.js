@@ -1,5 +1,17 @@
 const WIDGET_TAG = 'hello';
 
+
+
+
+// 当服务工作线程被激活时，
+// 将小组件更新到初始状态
+self.addEventListener("activate", event => {
+  event.waitUntil(renderWidget());
+  // 设置定期更新小组件
+  // setInterval(updateWidgets, 5000);
+});
+
+
 // 监听widgetinstall事件
 self.addEventListener("widgetinstall", event => {
   // 小组件刚刚安装，使用renderWidget渲染它
@@ -38,13 +50,7 @@ function replaceDatePlaceholders(dataString) {
   return dataString.replace(/"2000-00-00T00:00:00Z"/g, `"${now}"`);
 }
 
-// 当服务工作线程被激活时，
-// 将小组件更新到初始状态
-self.addEventListener("activate", event => {
-  // event.waitUntil(updateWidgets());
-  // 设置定期更新小组件
-  // setInterval(updateWidgets, 5000);
-});
+
 
 async function updateWidgets() {
   const widget = await self.widgets.getByTag(WIDGET_TAG);
