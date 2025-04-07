@@ -7,6 +7,10 @@ self.addEventListener("widgetinstall", event => {
   event.waitUntil(renderWidget(event.widget));
 });
 
+self.addEventListener("widgetuninstall", event => {
+  event.waitUntil(onWidgetUninstall(event.widget));
+});
+
 async function renderWidget(widget) {
   // 从小组件定义中获取模板和数据URL
   const templateUrl = widget.definition.msAcTemplate;
@@ -19,6 +23,26 @@ async function renderWidget(widget) {
   // 使用模板和数据渲染小组件
   await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
+
+
+async function onWidgetUninstall(widget) {
+  // On uninstall, unregister the periodic sync.
+  // If this was the last widget instance, then unregister the periodic sync.
+  if (widget.instances.length === 1 && "update" in widget.definition) {
+    await self.registration.periodicSync.unregister(widget.definition.tag);
+  }
+}
+
+// Listen to periodicsync events to update all widget instances
+// periodically.
+self.addEventListener("periodicsync", async event => {
+  const widget = await self.widgets.getByTag(event.tag);
+  if (widget && "update" in widget.definition) {
+    event.waitUntil(renderWidget(widget));
+  }
+});
+
+
 
 // 替换日期占位符的函数
 function replaceDatePlaceholders(dataString) {
