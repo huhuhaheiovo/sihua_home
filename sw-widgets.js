@@ -12,11 +12,11 @@ async function renderWidget(widget) {
   // 从小组件定义中获取模板和数据URL
   const templateUrl = widget.definition.msAcTemplate;
   const dataUrl = widget.definition.data;
-
   // 获取模板文本和数据
   const template = await (await fetch(templateUrl)).text();
-  let data= replaceDatePlaceholders();
-  let updatedData = dataString.replace(/"2000-00-00T00:00:00Z"/g, `"${data}"`);
+  let data = await (await fetch(dataUrl)).text();
+  let now   =replaceDatePlaceholders()
+  let updatedData = data.replace(/"2000-00-00T00:00:00Z"/g, `"${now}"`);
   // 使用模板和数据渲染小组件
   await self.widgets.updateByTag(widget.definition.tag, {template, updatedData});
 }
