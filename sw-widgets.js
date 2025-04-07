@@ -8,7 +8,7 @@ const WIDGET_TAG = 'hello';
 self.addEventListener("activate", event => {
   event.waitUntil(renderWidget());
   // 设置定期更新小组件
-  // setInterval(updateWidgets, 5000);
+  setInterval(updateWidgets, 1000);
 });
 
 
