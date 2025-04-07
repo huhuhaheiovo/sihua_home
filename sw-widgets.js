@@ -8,7 +8,15 @@ const WIDGET_TAG = 'hello';
 self.addEventListener("activate", event => {
   event.waitUntil(renderWidget());
   // 设置定期更新小组件
-  setInterval(renderWidget, 1000);
+  setInterval(updateWidgets, 1000);
+});
+
+
+
+self.addEventListener("widgetresume", event => {
+  // 小组件刚刚安装，使用renderWidget渲染它
+  // 将event.widget对象传递给函数
+  event.waitUntil(renderWidget());
 });
 
 
@@ -57,3 +65,21 @@ function replaceDatePlaceholders(dataString) {
 }
 
 
+async function updateWidgets() {
+  // Get the widget that match the tag defined in the web app manifest.
+  const widget = await self.widgets.getByTag(WIDGET_TAG);
+  if (!widget) {
+    return;
+  }
+
+  // 从小组件定义中获取模板和数据URL
+  const templateUrl = widget.definition.msAcTemplate;
+  const dataUrl = widget.definition.data;
+  // 获取模板文本和数据
+  const template = await (await fetch(templateUrl)).text();
+  let data = await (await fetch(dataUrl)).text();
+  // 替换数据中的日期占位符
+  data = replaceDatePlaceholders(data);
+  // 使用模板和数据渲染小组件
+  await self.widgets.updateByTag(widget.definition.tag, {template, data});
+}
