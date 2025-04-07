@@ -26,10 +26,8 @@ async function renderWidget(widget) {
 
 // 替换日期占位符的函数
 function replaceDatePlaceholders(dataString) {
-
-
-
-
+  // 创建当前日期对象
+  const now = new Date();
   // 替换数据中的占位符
   let updatedData = dataString.replace(/"2000-00-00T00:00:00Z"/g, `"${now}"`);
   // updatedData = updatedData.replace(/"2000-00-00T00:00:00Z"/g, `"${formattedDate}"`);
