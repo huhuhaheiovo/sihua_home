@@ -3,9 +3,6 @@ import {getFormattedDate} from "./utils.js";
 
 
 
-let template = null;
-let templateActions = [];
-let initialData = null;
 
 
 self.addEventListener("widgetresume", event => {
@@ -31,10 +28,10 @@ async function renderWidget(widget) {
   // const templateUrl = widget.definition.msAcTemplate;
   // const dataUrl = widget.definition.data;
   // 获取模板文本和数据
-  template = await (await fetch(widget.definition.msAcTemplate)).json();
-  initialData = await (await fetch(widget.definition.data)).json();
-  template.formattedDate=getFormattedDate();
-  template.implement="widgetuninstall";
+  const template = await (await fetch(widget.definition.msAcTemplate)).json();
+  const initialData = await (await fetch(widget.definition.data)).json();
+  initialData.formattedDate=getFormattedDate();
+  initialData.implement="widgetuninstall";
   // 使用模板和数据渲染小组件
 
   try {
@@ -75,12 +72,17 @@ async function updatePwampWidget() {
   if (!widget) {
     return;
   }
-  template = await (await fetch(widget.definition.msAcTemplate)).json();
-  initialData = await (await fetch(widget.definition.data)).json();
-  template.formattedDate="2021";
-  template.implement="111";
-  // 使用模板和数据渲染小组件
-  // Render the widget with the template and data.
-  await self.widgets.updateByTag(widget.definition.tag, {template, initialData});
+  const template = await (await fetch(widget.definition.msAcTemplate)).json();
+  const initialData = await (await fetch(widget.definition.data)).json();
+  initialData.formattedDate="2021";
+  initialData.implement="111";
+  try {
+    await self.widgets.updateByTag(widget.definition.tag, {
+      template: JSON.stringify(template),
+      data: JSON.stringify(initialData)
+    });
+  } catch (e) {
+    console.log('Failed to update widget', e);
+  }
 }
 
