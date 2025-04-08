@@ -50,7 +50,7 @@
                 },
                 {
                   "type": "TextBlock",
-                  "text": "Final",
+                  "text": "${implement}",
                   "spacing": "none",
                   "horizontalAlignment": "center",
                   "wrap": true
