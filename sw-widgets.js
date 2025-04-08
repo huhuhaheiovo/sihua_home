@@ -32,12 +32,12 @@ async function renderWidget(widget) {
   const initialData = await (await fetch(widget.definition.data)).json();
   initialData.formattedDate=getFormattedDate();
   initialData.implement="widgetuninstall";
-  // 使用模板和数据渲染小组件
 
+  // 使用模板和数据渲染小组件
   try {
     await self.widgets.updateByTag(widget.definition.tag, {
-      template: JSON.stringify(template),
-      data: JSON.stringify(initialData)
+      template: JSON.stringify(this.template),
+      data: JSON.stringify(this.initialData)
     });
   } catch (e) {
     console.log('Failed to update widget', e);
