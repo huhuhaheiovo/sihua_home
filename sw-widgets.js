@@ -29,15 +29,47 @@ async function renderWidget(widget) {
   // const dataUrl = widget.definition.data;
   // 获取模板文本和数据
   const template = await (await fetch(widget.definition.msAcTemplate)).json();
-  const initialData = await (await fetch(widget.definition.data)).json();
+
+  const data={
+    "id": 401117857,
+    "season": 2019,
+    "week": 1,
+    "season_type": "regular",
+    "formattedDate": "",
+    "implement": "生命周期",
+    "neutral_site": false,
+    "conference_game": false,
+    "attendance": null,
+    "venue_id": 3852,
+    "venue": "Navy-Marine Corps Memorial Stadium",
+    "home_team": "Navy",
+    "home_conference": "American Athletic",
+    "home_points": 45,
+    "home_line_scores": [
+      10,
+      14,
+      14,
+      7
+    ],
+    "away_team": "Holy Cross",
+    "away_conference": null,
+    "away_points": 7,
+    "away_line_scores": [
+      0,
+      7,
+      0,
+      0
+    ]
+  }
+  const initialData = data.json();
   initialData.formattedDate=getFormattedDate();
   initialData.implement="widgetuninstall";
 
   // 使用模板和数据渲染小组件
   try {
     await self.widgets.updateByTag(widget.definition.tag, {
-      template: JSON.stringify(this.template),
-      data: JSON.stringify(this.initialData)
+      template: JSON.stringify(template),
+      data: JSON.stringify(initialData)
     });
   } catch (e) {
     console.log('Failed to update widget', e);
