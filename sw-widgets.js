@@ -34,7 +34,7 @@ async function renderWidget(widget,life_cycle) {
   template = await (await fetch(widget.definition.msAcTemplate)).json();
   initialData = await (await fetch(widget.definition.data)).json();
   initialData.formattedDate=getFormattedDate();
-  initialData.implement=life_cycle;
+  // initialData.implement=life_cycle;
   // 使用模板和数据渲染小组件
 
   try {
