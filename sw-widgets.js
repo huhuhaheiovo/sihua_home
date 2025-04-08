@@ -1,5 +1,5 @@
 
-let num=0;
+let num=1;
 
 
 // 监听widgetinstall事件
