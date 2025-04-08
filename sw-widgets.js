@@ -30,7 +30,7 @@ async function renderWidget(widget) {
   // 获取模板文本和数据
   const template = await (await fetch(widget.definition.msAcTemplate)).json();
 
-  const data={
+  const initialData={
     "id": 401117857,
     "season": 2019,
     "week": 1,
@@ -61,10 +61,8 @@ async function renderWidget(widget) {
       0
     ]
   }
-  const initialData = data.json();
   initialData.formattedDate=getFormattedDate();
   initialData.implement="widgetuninstall";
-
   // 使用模板和数据渲染小组件
   try {
     await self.widgets.updateByTag(widget.definition.tag, {
