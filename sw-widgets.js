@@ -83,36 +83,5 @@ async function onWidgetUninstall(widget) {
 }
 
 
-// 当服务工作线程被激活时，
-// 将小组件更新到初始状态
-// self.addEventListener("activate", event => {
-//   event.waitUntil(updateWidgets());
-//   // 设置定期更新小组件
-//   setInterval(updateWidgets, 1000); // 每分钟更新一次
-// });
 
-async function updateWidgets(event) {
-  // 更新hello小组件
-  await updatePwampWidget();
-}
-
-async function updatePwampWidget() {
-  // 获取与Web应用清单中定义的标签匹配的小组件
-  const widget = await self.widgets.getByTag(WIDGET_TAG);
-  if (!widget) {
-    return;
-  }
-  const template = await (await fetch(widget.definition.msAcTemplate)).json();
-  const initialData = await (await fetch(widget.definition.data)).json();
-  initialData.formattedDate="2021";
-  initialData.implement="111";
-  try {
-    await self.widgets.updateByTag(widget.definition.tag, {
-      template: JSON.stringify(template),
-      data: JSON.stringify(initialData)
-    });
-  } catch (e) {
-    console.log('Failed to update widget', e);
-  }
-}
 
