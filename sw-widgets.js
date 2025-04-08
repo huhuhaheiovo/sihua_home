@@ -28,7 +28,7 @@ async function renderWidget(widget) {
   // const templateUrl = widget.definition.msAcTemplate;
   // const dataUrl = widget.definition.data;
   // 获取模板文本和数据
-  const template = await (await fetch(widget.definition.msAcTemplate)).json();
+  // const template = await (await fetch(widget.definition.msAcTemplate)).json();
 
   const initialData={
     "id": 401117857,
@@ -36,7 +36,7 @@ async function renderWidget(widget) {
     "week": 1,
     "season_type": "regular",
     "formattedDate": "",
-    "implement": "生命周期",
+    "implement": "",
     "neutral_site": false,
     "conference_game": false,
     "attendance": null,
@@ -64,14 +64,15 @@ async function renderWidget(widget) {
   initialData.formattedDate=getFormattedDate();
   initialData.implement="widgetuninstall";
   // 使用模板和数据渲染小组件
-  try {
-    await self.widgets.updateByTag(widget.definition.tag, {
-      template: JSON.stringify(template),
-      data: JSON.stringify(null)
-    });
-  } catch (e) {
-    console.log('Failed to update widget', e);
-  }
+
+  const templateUrl = widget.definition.msAcTemplate;
+  const dataUrl = widget.definition.data;
+
+  // Fetch the template text and data.
+  const template = await (await fetch(templateUrl)).text();
+  const data = await (await fetch(dataUrl)).text();
+  // Render the widget with the template and data.
+  await self.widgets.updateByTag(widget.definition.tag, {template, initialData});
 }
 
 async function onWidgetUninstall(widget) {
