@@ -19,14 +19,14 @@ self.addEventListener("widgetresume", event => {
 self.addEventListener("widgetinstall", event => {
   // 小组件刚刚安装，使用renderWidget渲染它
   // 将event.widget对象传递给函数
-  event.waitUntil(renderWidget(event.widget,"widgetinstall"));
+  event.waitUntil(renderWidget(event.widget));
 });
 
 self.addEventListener("widgetuninstall", event => {
   event.waitUntil(onWidgetUninstall(event.widget));
 });
 
-async function renderWidget(widget,life_cycle) {
+async function renderWidget(widget) {
   // 从小组件定义中获取模板和数据URL
   // const templateUrl = widget.definition.msAcTemplate;
   // const dataUrl = widget.definition.data;
@@ -34,7 +34,7 @@ async function renderWidget(widget,life_cycle) {
   template = await (await fetch(widget.definition.msAcTemplate)).json();
   initialData = await (await fetch(widget.definition.data)).json();
   initialData.formattedDate=getFormattedDate();
-  initialData.implement=life_cycle;
+  initialData.implement="widgetuninstall";
   // 使用模板和数据渲染小组件
 
   try {
