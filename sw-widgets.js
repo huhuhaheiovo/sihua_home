@@ -33,8 +33,8 @@ async function renderWidget(widget) {
   // 获取模板文本和数据
   template = await (await fetch(widget.definition.msAcTemplate)).json();
   initialData = await (await fetch(widget.definition.data)).json();
-  initialData.formattedDate=getFormattedDate();
-  initialData.implement="widgetuninstall";
+  template.formattedDate=getFormattedDate();
+  template.implement="widgetuninstall";
   // 使用模板和数据渲染小组件
 
   try {
@@ -77,8 +77,8 @@ async function updatePwampWidget() {
   }
   template = await (await fetch(widget.definition.msAcTemplate)).json();
   initialData = await (await fetch(widget.definition.data)).json();
-  initialData.formattedDate="2021";
-  initialData.implement="111";
+  template.formattedDate="2021";
+  template.implement="111";
   // 使用模板和数据渲染小组件
   // Render the widget with the template and data.
   await self.widgets.updateByTag(widget.definition.tag, {template, initialData});
