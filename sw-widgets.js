@@ -33,7 +33,7 @@ async function renderWidget(widget,life_cycle) {
   // 获取模板文本和数据
   template = await (await fetch(widget.definition.msAcTemplate)).json();
   initialData = await (await fetch(widget.definition.data)).json();
-  initialData.start_date=getFormattedDate();
+  initialData.formattedDate=getFormattedDate();
   initialData.implement=life_cycle;
   // 使用模板和数据渲染小组件
 
