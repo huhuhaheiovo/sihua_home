@@ -81,7 +81,7 @@ async function updatePwampWidget() {
   initialData.implement="111";
   // 使用模板和数据渲染小组件
   try {
-    await self.widgets.updateByTag(WIDGET_TAG, {
+    await self.widgets.updateByTag(widget.definition.tag, {
       template: JSON.stringify(template),
       data: JSON.stringify(initialData)
     });
