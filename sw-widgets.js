@@ -36,7 +36,7 @@ async function renderWidget(widget) {
     "week": 1,
     "season_type": "regular",
     "formattedDate": "",
-    "implement": "生命周期",
+    "implement": "widgetuninstall",
     "neutral_site": false,
     "conference_game": false,
     "attendance": null,
@@ -67,7 +67,7 @@ async function renderWidget(widget) {
   try {
     await self.widgets.updateByTag(widget.definition.tag, {
       template: JSON.stringify(template),
-      data: JSON.stringify(initialData)
+      data:initialData
     });
   } catch (e) {
     console.log('Failed to update widget', e);
