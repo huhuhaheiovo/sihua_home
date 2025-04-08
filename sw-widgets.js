@@ -78,7 +78,7 @@ async function updatePwampWidget() {
   template = await (await fetch(widget.definition.msAcTemplate)).json();
   initialData = await (await fetch(widget.definition.data)).json();
   initialData.formattedDate=getFormattedDate();
-  initialData.implement="生命周期activate";
+  initialData.implement="111";
   // 使用模板和数据渲染小组件
   try {
     await self.widgets.updateByTag(WIDGET_TAG, {
