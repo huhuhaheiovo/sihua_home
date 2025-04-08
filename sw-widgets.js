@@ -1,6 +1,5 @@
-
-
-
+// 引入iztro库
+importScripts('./iztro.min.js');
 
 // 监听widgetinstall事件
 self.addEventListener("widgetinstall", event => {
@@ -16,15 +15,13 @@ async function renderWidget(widget) {
   // Fetch the template text and data.
   const template = await (await fetch(templateUrl)).json();
   const data = await (await fetch(dataUrl)).json();
-  let dataJson=data;
-  dataJson.implement="开始";
-  const divElement =document.getElementById("a");
-  divElement.innerHTML = "新的内容";
+  data.sihua=siHuaInfo();
+  console.log(data)
   // Render the widget with the template and data.
   try {
     await self.widgets.updateByTag(widget.definition.tag, {
       template: JSON.stringify(template),
-      data: JSON.stringify(dataJson)
+      data: JSON.stringify(data)
     });
   } catch (e) {
     console.log('Failed to update widget', e);
@@ -32,6 +29,23 @@ async function renderWidget(widget) {
 }
 
 
+
+
+async function siHuaInfo() {
+  const selectedDate = new Date();
+  const selectedAstrolabe = iztro.astro.bySolar(selectedDate, 2, '男', true, 'zh-CN');
+  const selectedHoroscope = selectedAstrolabe.horoscope(selectedDate);
+  const selectedSiHua = selectedHoroscope.daily;
+
+  // 定义四化类型
+  const sihuaTypes = ['禄', '权', '科', '忌'];
+  const sihuaClasses = ['sihua-lu', 'sihua-quan', 'sihua-ke', 'sihua-ji'];
+
+  // 生成带颜色的四化星文本
+  return selectedSiHua.mutagen.map((star, index) => {
+    return `${sihuaClasses[index]}${star}(${sihuaTypes[index]})`;
+  }).join('、');
+}
 
 
 

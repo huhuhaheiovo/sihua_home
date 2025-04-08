@@ -89,6 +89,12 @@
           ]
         }
       ]
+    },{
+      "type": "TextBlock",
+      "text": "${sihua}",
+      "wrap": true,
+      "style": "heading",
+      "horizontalAlignment": "center"
     }
   ]
 }
