@@ -25,46 +25,6 @@ self.addEventListener("widgetuninstall", event => {
 
 async function renderWidget(widget) {
   // 从小组件定义中获取模板和数据URL
-  // const templateUrl = widget.definition.msAcTemplate;
-  // const dataUrl = widget.definition.data;
-  // 获取模板文本和数据
-  // const template = await (await fetch(widget.definition.msAcTemplate)).json();
-
-  const initialData={
-    "id": 401117857,
-    "season": 2019,
-    "week": 1,
-    "season_type": "regular",
-    "formattedDate": "",
-    "implement": "",
-    "neutral_site": false,
-    "conference_game": false,
-    "attendance": null,
-    "venue_id": 3852,
-    "venue": "Navy-Marine Corps Memorial Stadium",
-    "home_team": "Navy",
-    "home_conference": "American Athletic",
-    "home_points": 45,
-    "home_line_scores": [
-      10,
-      14,
-      14,
-      7
-    ],
-    "away_team": "Holy Cross",
-    "away_conference": null,
-    "away_points": 7,
-    "away_line_scores": [
-      0,
-      7,
-      0,
-      0
-    ]
-  }
-  initialData.formattedDate=getFormattedDate();
-  initialData.implement="widgetuninstall";
-  // 使用模板和数据渲染小组件
-
   const templateUrl = widget.definition.msAcTemplate;
   const dataUrl = widget.definition.data;
 
@@ -72,7 +32,7 @@ async function renderWidget(widget) {
   const template = await (await fetch(templateUrl)).text();
   const data = await (await fetch(dataUrl)).text();
   // Render the widget with the template and data.
-  await self.widgets.updateByTag(widget.definition.tag, {template, initialData});
+  await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
 
 async function onWidgetUninstall(widget) {
