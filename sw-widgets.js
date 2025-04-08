@@ -1,6 +1,4 @@
 const WIDGET_TAG = 'hello';
-import {getFormattedDate} from "./utils.js";
-
 
 
 
@@ -19,10 +17,6 @@ self.addEventListener("widgetinstall", event => {
   event.waitUntil(renderWidget(event.widget));
 });
 
-self.addEventListener("widgetuninstall", event => {
-  event.waitUntil(onWidgetUninstall(event.widget));
-});
-
 async function renderWidget(widget) {
   // 从小组件定义中获取模板和数据URL
   const templateUrl = widget.definition.msAcTemplate;
@@ -30,7 +24,8 @@ async function renderWidget(widget) {
 
   // Fetch the template text and data.
   const template = await (await fetch(templateUrl)).text();
-  const data = await (await fetch(dataUrl)).text();
+  let data = await (await fetch(dataUrl)).text();
+   data=dataString.replace("生命周期", "widgetinstall");
   // Render the widget with the template and data.
   await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
