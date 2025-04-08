@@ -81,6 +81,6 @@ async function updatePwampWidget() {
   initialData.implement="111";
   // 使用模板和数据渲染小组件
   // Render the widget with the template and data.
-  await self.widgets.updateByTag(widget.definition.tag, {template, data});
+  await self.widgets.updateByTag(widget.definition.tag, {template, initialData});
 }
 
