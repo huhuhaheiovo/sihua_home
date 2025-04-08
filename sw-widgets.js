@@ -36,7 +36,15 @@ async function renderWidget(widget,life_cycle) {
   initialData.start_date=getFormattedDate();
   initialData.implement=life_cycle;
   // 使用模板和数据渲染小组件
-  await self.widgets.updateByTag(widget.definition.tag, {template, data});
+
+  try {
+    await self.widgets.updateByTag(WIDGET_TAG, {
+      template: JSON.stringify(template),
+      data: JSON.stringify(initialData)
+    });
+  } catch (e) {
+    console.log('Failed to update widget', e);
+  }
 }
 
 async function onWidgetUninstall(widget) {
