@@ -1,3 +1,7 @@
+
+let num=0;
+
+
 // 监听widgetinstall事件
 self.addEventListener("widgetinstall", event => {
   // 小组件刚刚安装，使用renderWidget渲染它
@@ -13,7 +17,7 @@ async function renderWidget(widget) {
   const template = await (await fetch(templateUrl)).json();
   const data = await (await fetch(dataUrl)).json();
   let dataJson=data;
-  dataJson.implement="widgetinstall1";
+  dataJson.implement="widgetinstall"+num++;
   // Render the widget with the template and data.
   try {
     await self.widgets.updateByTag(widget.definition.tag, {
