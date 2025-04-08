@@ -1,5 +1,5 @@
 
-let num=1;
+
 
 
 // 监听widgetinstall事件
@@ -17,8 +17,9 @@ async function renderWidget(widget) {
   const template = await (await fetch(templateUrl)).json();
   const data = await (await fetch(dataUrl)).json();
   let dataJson=data;
-  let i=num+1;
-  dataJson.implement=i;
+  dataJson.implement="开始";
+  const divElement =document.getElementById("a");
+  divElement.innerHTML = "新的内容";
   // Render the widget with the template and data.
   try {
     await self.widgets.updateByTag(widget.definition.tag, {

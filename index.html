@@ -4,74 +4,13 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2"/>
-    <link rel="stylesheet" href="converter.css">
-  <link rel="stylesheet" href="about.css" />
-  <link rel="stylesheet" href="skins/default.css" id="default-stylesheet" />
     <link rel="manifest" href="/manifest.json">
     <title>Temperature converter</title>
 </head>
 <body>
-<section class="player">
-    <div class="player-controls">
-        <button
-                class="player-control-button main-button"
-                id="previous"
-                title="Go to the previous song or the beginning of song (P)"
-        >
-            <span lang="en" translate="no">Previous</span>
-        </button>
-        <button
-                class="player-control-button main-button"
-                id="playpause"
-                title="Play (space)"
-        >
-            <span lang="en" translate="no">Play</span>
-        </button>
-        <button
-                class="player-control-button main-button"
-                id="next"
-                title="Go to the next song (N)"
-        >
-            <span lang="en" translate="no">aaaaaaa</span>
-        </button>
-        <button
-                class="main-button"
-                id="toggle-visualizer"
-                title="Show visualizer (V)"
-        >
-            <span lang="en" translate="no">Show visualizer</span>
-        </button>
-    </div>
-
-    <div class="playhead-control">
-        <span id="currenttime">00:00</span>
-        <input
-                type="range"
-                id="playhead"
-                aria-label="Current position in song"
-                value="0"
-        />
-        <span id="duration">00:00</span>
-    </div>
-</section>
-<form id="converter">
-    <label for="input-temp">temperature</label>
-    <input type="text" id="input-temp" name="input-temp" value="20"/>
-    <label for="input-unit">from</label>
-    <select id="input-unit" name="input-unit">
-        <option value="c" selected>Celsius</option>
-        <option value="f">Fahrenheit</option>
-        <option value="k">Kelvin</option>
-    </select>
-    <label for="output-unit">to</label>
-    <select id="output-unit" name="output-unit">
-        <option value="c">Celsius</option>
-        <option value="f" selected>Fahrenheit</option>
-        <option value="k">Kelvin</option>
-    </select>
-    <output name="output-temp" id="output-temp" for="input-temp input-unit output-unit">68 F</output>
-</form>
-<script src="converter.js"></script>
+<div  id="a">
+aaa
+</div>
 <script>
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js', {scope: '/'});
