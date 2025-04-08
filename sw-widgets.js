@@ -80,13 +80,7 @@ async function updatePwampWidget() {
   initialData.formattedDate="2021";
   initialData.implement="111";
   // 使用模板和数据渲染小组件
-  try {
-    await self.widgets.updateByTag(widget.definition.tag, {
-      template: JSON.stringify(template),
-      data: JSON.stringify(initialData)
-    });
-  } catch (e) {
-    console.log('Failed to update widget', e);
-  }
+  // Render the widget with the template and data.
+  await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
 
