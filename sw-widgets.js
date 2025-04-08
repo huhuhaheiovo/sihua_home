@@ -30,14 +30,6 @@ async function renderWidget(widget) {
   await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
 
-async function onWidgetUninstall(widget) {
-  //卸载时，注销周期同步。
-  //如果这是最后一个小部件实例，那么注销周期性同步。
-  if (widget.instances.length === 1 && "update" in widget.definition) {
-    await self.registration.periodicSync.unregister(widget.definition.tag);
-  }
-}
-
 
 
 
