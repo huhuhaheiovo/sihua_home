@@ -77,7 +77,7 @@ async function updatePwampWidget() {
   }
   template = await (await fetch(widget.definition.msAcTemplate)).json();
   initialData = await (await fetch(widget.definition.data)).json();
-  initialData.formattedDate=getFormattedDate();
+  initialData.formattedDate="2021";
   initialData.implement="111";
   // 使用模板和数据渲染小组件
   try {
