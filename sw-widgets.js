@@ -11,10 +11,9 @@ async function renderWidget(widget) {
   const dataUrl = widget.definition.data;
 
   // Fetch the template text and data.
-  const template = await (await fetch(templateUrl)).text();
-  let data = await (await fetch(dataUrl)).text();
-  const now="widgetinstall"
-  data=data.replace(/"生命周期"/g, `"${now}"`);
+  const template = await (await fetch(templateUrl)).json();
+  let data = await (await fetch(dataUrl)).json();
+   data.implement="widgetinstall";
   // Render the widget with the template and data.
   await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
