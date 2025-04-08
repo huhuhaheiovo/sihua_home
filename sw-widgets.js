@@ -17,7 +17,7 @@ async function renderWidget(widget) {
   const template = await (await fetch(templateUrl)).json();
   const data = await (await fetch(dataUrl)).json();
   let dataJson=data;
-  let i=num++;
+  let i=num+1;
   dataJson.implement=i;
   // Render the widget with the template and data.
   try {
