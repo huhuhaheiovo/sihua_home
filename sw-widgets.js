@@ -1,15 +1,3 @@
-const WIDGET_TAG = 'hello';
-
-
-
-
-self.addEventListener("widgetresume", event => {
-  // 小组件刚刚安装，使用renderWidget渲染它
-  // 将event.widget对象传递给函数
-  // event.waitUntil(renderWidget(event.widget));
-});
-
-
 // 监听widgetinstall事件
 self.addEventListener("widgetinstall", event => {
   // 小组件刚刚安装，使用renderWidget渲染它
@@ -25,7 +13,8 @@ async function renderWidget(widget) {
   // Fetch the template text and data.
   const template = await (await fetch(templateUrl)).text();
   let data = await (await fetch(dataUrl)).text();
-   data=dataString.replace("生命周期", "widgetinstall");
+  const now="widgetinstall"
+  data=data.replace(/"生命周期"/g, `"${now}"`);
   // Render the widget with the template and data.
   await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }

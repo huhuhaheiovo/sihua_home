@@ -20,7 +20,7 @@
   ],
   "widgets": [
     {
-      "name": "hello mini player",
+      "name": "hello mini play",
       "description": "hello world",
       "tag": "hello",
       "template": "hello-template",
