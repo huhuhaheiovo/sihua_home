@@ -13,7 +13,7 @@ async function renderWidget(widget) {
   // Fetch the template text and data.
   const template = await (await fetch(templateUrl)).json();
   let data = await (await fetch(dataUrl)).json();
-   data.implement="widgetinstall";
+   data.implement="widgetinstall1";
   // Render the widget with the template and data.
   await self.widgets.updateByTag(widget.definition.tag, {template, data});
 }
