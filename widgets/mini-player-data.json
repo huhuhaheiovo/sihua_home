@@ -13,7 +13,10 @@
   "home_team": "Navy",
   "home_conference": "American Athletic",
   "home_points": 45,
-  "sihua": "太阴(禄)、天同(权)、天机(科)、巨门(忌)",
+  "sihua": "(禄)、(权)、(科)、(忌)",
+  "isFriday": "",
+  "lunarDate": "",
+  "time": "",
   "home_line_scores": [
     10,
     14,

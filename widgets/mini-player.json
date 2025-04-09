@@ -6,7 +6,7 @@
   "body": [
     {
       "type": "TextBlock",
-      "text": "Scoreboard",
+      "text": "流日四化",
       "wrap": true,
       "style": "heading",
       "horizontalAlignment": "center"
@@ -29,7 +29,7 @@
                 },
                 {
                   "type": "TextBlock",
-                  "text": "SHADES",
+                  "text": "${zhou}",
                   "horizontalAlignment": "center",
                   "weight": "bolder",
                   "wrap": true
@@ -57,7 +57,7 @@
                 },
                 {
                   "type": "TextBlock",
-                  "text": "${home_points} - ${away_points}",
+                  "text": "${time}",
                   "size": "extraLarge",
                   "horizontalAlignment": "center",
                   "wrap": true
@@ -79,7 +79,7 @@
                 },
                 {
                   "type": "TextBlock",
-                  "text": "SKINS",
+                  "text": "${isFriday}",
                   "horizontalAlignment": "center",
                   "weight": "bolder",
                   "wrap": true
@@ -89,10 +89,20 @@
           ]
         }
       ]
-    },{
+    },
+    {
+      "type": "TextBlock",
+      "text": "${lunarDate}",
+      "wrap": true,
+      "size": "Default",
+      "style": "heading",
+      "horizontalAlignment": "center"
+    },
+    {
       "type": "TextBlock",
       "text": "${sihua}",
       "wrap": true,
+      "size": "Default",
       "style": "heading",
       "horizontalAlignment": "center"
     }

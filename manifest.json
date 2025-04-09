@@ -1,8 +1,8 @@
 {
-  "lang": "en-us",
-  "name": "Temperature converter app",
-  "short_name": "Temperature converter",
-  "description": "A basic temperature converter application that can convert to and from Celsius, Kelvin, and Fahrenheit",
+  "lang": "zh-cn",
+  "name": "黄盒",
+  "short_name": "摸鱼盒子",
+  "description": "无聊的摸鱼小组件盒子",
   "start_url": "./",
   "scope": "./",
   "display_override": [
@@ -20,9 +20,9 @@
   ],
   "widgets": [
     {
-      "name": "hello mini play",
-      "description": "hello world",
-      "tag": "hello",
+      "name": "黄盒",
+      "description": "boxes",
+      "tag": "box",
       "template": "hello-template",
       "ms_ac_template": "widgets/mini-player.json",
       "data": "widgets/mini-player-data.json",
