@@ -2,7 +2,6 @@
 importScripts('./iztro.min.js');
 importScripts('./utils.js');
 
-let  num=0;
 
 // 监听widgetinstall事件
 self.addEventListener("widgetinstall", event => {
@@ -73,7 +72,7 @@ async function updateWidget(widget) {
     data.isFriday="不是周五"
   }
   //组件状态
-  data.implement=num+1
+  // data.implement=num+1
   try {
     await self.widgets.updateByTag(widget.definition.tag, {
       template: JSON.stringify(template),
