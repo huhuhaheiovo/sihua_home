@@ -29,7 +29,7 @@
       "type": "application/json",
       "screenshots": [
         {
-          "src": "./Snipaste_2025-03-31_21-18-23.png",
+          "src": "./index.png",
           "sizes": "600x400",
           "label": "The ziwei mini-player widget"
         }
