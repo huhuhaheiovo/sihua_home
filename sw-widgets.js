@@ -114,18 +114,18 @@ function getChineseHour() {
   const now = new Date();
   const hour = now.getHours();
   const chineseHours = [
-    { name: '子时', period: '23:00-01:00', index: 1 },
-    { name: '丑时', period: '01:00-03:00', index: 2 },
-    { name: '寅时', period: '03:00-05:00', index: 3 },
-    { name: '卯时', period: '05:00-07:00', index: 4 },
-    { name: '辰时', period: '07:00-09:00', index: 5 },
-    { name: '巳时', period: '09:00-11:00', index: 6 },
-    { name: '午时', period: '11:00-13:00', index: 7 },
-    { name: '未时', period: '13:00-15:00', index: 8 },
-    { name: '申时', period: '15:00-17:00', index: 9 },
-    { name: '酉时', period: '17:00-19:00', index: 10 },
-    { name: '戌时', period: '19:00-21:00', index: 11 },
-    { name: '亥时', period: '21:00-23:00', index: 12 }
+    { name: '子时', period: '23:00-01:00', index: 0 },
+    { name: '丑时', period: '01:00-03:00', index: 1 },
+    { name: '寅时', period: '03:00-05:00', index: 2 },
+    { name: '卯时', period: '05:00-07:00', index: 3 },
+    { name: '辰时', period: '07:00-09:00', index: 4 },
+    { name: '巳时', period: '09:00-11:00', index: 5 },
+    { name: '午时', period: '11:00-13:00', index: 6 },
+    { name: '未时', period: '13:00-15:00', index: 7 },
+    { name: '申时', period: '15:00-17:00', index: 8 },
+    { name: '酉时', period: '17:00-19:00', index: 9 },
+    { name: '戌时', period: '19:00-21:00', index: 10 },
+    { name: '亥时', period: '21:00-23:00', index: 11 }
   ];
   
   let currentHour;
