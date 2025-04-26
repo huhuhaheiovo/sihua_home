@@ -1,81 +1,38 @@
-<!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2"/>
-    <link rel="stylesheet" href="converter.css">
-  <link rel="stylesheet" href="about.css" />
-  <link rel="stylesheet" href="skins/default.css" id="default-stylesheet" />
-    <link rel="manifest" href="/manifest.json">
-    <title>Temperature converter</title>
+    <style>
+        /* 自定义悬浮入口的位置 */
+        #position_demo {
+            position: absolute;
+            right: 10px;
+            bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-<section class="player">
-    <div class="player-controls">
-        <button
-                class="player-control-button main-button"
-                id="previous"
-                title="Go to the previous song or the beginning of song (P)"
-        >
-            <span lang="en" translate="no">Previous</span>
-        </button>
-        <button
-                class="player-control-button main-button"
-                id="playpause"
-                title="Play (space)"
-        >
-            <span lang="en" translate="no">Play</span>
-        </button>
-        <button
-                class="player-control-button main-button"
-                id="next"
-                title="Go to the next song (N)"
-        >
-            <span lang="en" translate="no">aaaaaaa</span>
-        </button>
-        <button
-                class="main-button"
-                id="toggle-visualizer"
-                title="Show visualizer (V)"
-        >
-            <span lang="en" translate="no">Show visualizer</span>
-        </button>
-    </div>
-
-    <div class="playhead-control">
-        <span id="currenttime">00:00</span>
-        <input
-                type="range"
-                id="playhead"
-                aria-label="Current position in song"
-                value="0"
-        />
-        <span id="duration">00:00</span>
-    </div>
-</section>
-<form id="converter">
-    <label for="input-temp">temperature</label>
-    <input type="text" id="input-temp" name="input-temp" value="20"/>
-    <label for="input-unit">from</label>
-    <select id="input-unit" name="input-unit">
-        <option value="c" selected>Celsius</option>
-        <option value="f">Fahrenheit</option>
-        <option value="k">Kelvin</option>
-    </select>
-    <label for="output-unit">to</label>
-    <select id="output-unit" name="output-unit">
-        <option value="c">Celsius</option>
-        <option value="f" selected>Fahrenheit</option>
-        <option value="k">Kelvin</option>
-    </select>
-    <output name="output-temp" id="output-temp" for="input-temp input-unit output-unit">68 F</output>
-</form>
-<script src="converter.js"></script>
+<h1>Hello World</h1>
+<div id="position_demo"></div>
+<script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.8/libs/cn/index.js"></script>
 <script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js', {scope: '/'});
-    }
+    const cozeWebSDK = new CozeWebSDK.WebChatClient({
+        config: {
+            // 智能体 ID
+            botId: '7486318284028739638',
+        },
+        auth:  {
+            //鉴权方式，默认type 为unauth，表示不鉴权；建议设置为 token，表示通过PAT或OAuth鉴权
+            type: 'token',
+            //type 为 token 时，需要设置PAT或OAuth访问密钥
+            token: 'pat_A8ouSTEC0INJgpCgNwFU9k4OiLpngJi7EEwx3T1QW7wGgw3MUDYmHso2VylEUTkL',
+            //访问密钥过期时，使用的新密钥，可以按需设置。
+            onRefreshToken: () => 'pat_A8ouSTEC0INJgpCgNwFU9k4OiLpngJi7EEwx3T1QW7wGgw3MUDYmHso2VylEUTkL',
+        },ui:{
+            chatBot: {
+                title: "智能客服",
+                uploadable: true
+            }}
+    });
 </script>
 </body>
 </html>
